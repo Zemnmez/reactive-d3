@@ -18,6 +18,8 @@ yarn add reactive-d3
 
 More extensive examples can be found in the `examples/` directory, including a dynamically sized linegraph.
 
+Ensure that D3 elements are given a size at some point, or a glitch will hapen where the drawing gradually balloons.
+
 ```jsx
 import React, { Component } from 'react'
 
@@ -58,6 +60,11 @@ class SimpleCircles extends React.Component {
     </D3>
   }
 }
+
+export default <SimpleCircles style={{width: "10vw", height: "10vh"}} circles ={[
+  {color: "red", ratio: 0.5},
+  {color: "green", ratio: 0.1}
+]}/>
 ```
 
 ## License
