@@ -207,4 +207,42 @@ class Graph extends React.PureComponent {
   }
 }
 
-export default Graph;
+class SimpleCircles extends Component {
+  join({main, width, height}) {
+    // expect a [{color: "white", ratio: .5}] etc
+    let {circles} = this.props;
+
+    main = d3.select(main);
+    main.attr("viewBox", `0 0 ${width} ${height}`);
+
+    // draw the circles and bind the data
+    circles = main.selectAll("circle").data(circles);
+
+    // remove any circles that no longer exist
+    circles.exit().remove();
+
+    // add any circles that don't exist yet
+    // and update the rest
+    circles = circles.enter()
+      .append("circle")
+      .merge(circles)
+      .attr("cx", width / 2)
+      .attr("cy", height /2)
+      .attr("r", ({ratio}) => width * ratio)
+      .attr("fill", ({color}) => color);
+  }
+
+  render() {
+    return <D3 style={{width: "10vw", height: "10vh", ...this.props.style}} join={({...args}) => this.join(args)}>
+      <svg />
+    </D3>
+  }
+}
+
+export default () => <div>
+  <Graph/>
+  <SimpleCircles style={{width: "10vw", height: "10vh"}} circles={[
+    {color: "red", ratio: 0.5},
+    {color: "green", ratio: 0.1}
+  ]}/>
+</div>;
