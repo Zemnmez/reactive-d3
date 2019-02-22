@@ -221,6 +221,8 @@ class SimpleCircles extends Component {
     // remove any circles that no longer exist
     circles.exit().remove();
 
+	console.log(width, height);
+
     // add any circles that don't exist yet
     // and update the rest
     circles = circles.enter()
@@ -228,12 +230,13 @@ class SimpleCircles extends Component {
       .merge(circles)
       .attr("cx", width / 2)
       .attr("cy", height /2)
-      .attr("r", ({ratio}) => width * ratio)
+      .attr("r", ({ratio}) => Math.min(width, height) * ratio)
       .attr("fill", ({color}) => color);
   }
 
   render() {
-    return <D3 style={{width: "10vw", height: "10vh", ...this.props.style}} join={({...args}) => this.join(args)}>
+	const { props: { style } } = this;
+    return <D3 {...{style}} join={({...args}) => this.join(args)}>
       <svg />
     </D3>
   }
@@ -242,7 +245,7 @@ class SimpleCircles extends Component {
 export default () => <div>
   <Graph/>
   <SimpleCircles style={{width: "10vw", height: "10vh"}} circles={[
-    {color: "red", ratio: 0.5},
+    {color: "red", ratio: .5},
     {color: "green", ratio: 0.1}
   ]}/>
 </div>;

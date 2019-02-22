@@ -1,6 +1,6 @@
 {
   "name": "reactive-d3",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "reactive react bindings for d3",
   "author": "zemnmez",
   "license": "MIT",
@@ -59,9 +59,6 @@
     "dist"
   ],
   "dependencies": {
-    "d3": "^5.7.0",
-    "react-animation-frame": "^1.0.2",
-    "react-resize-observer": "^1.1.1",
-    "react-throttle": "^0.3.0"
+    "resize-observer-polyfill": "^1.5.1"
   }
 }

@@ -1,56 +1,57 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import ResizeObserver from 'react-resize-observer';
-
+import ResizeObserver from 'resize-observer-polyfill';
+import style from './index.module.css';
 
 export default class D3 extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {};
-    this.main = React.createRef();
+    const [main, container] = [React.createRef(), React.createRef()];
+	const state = {};
+
+    Object.assign(this, {main, container, state});
   }
 
   componentDidUpdate() {
-    let {join} = this.props;
-    let {width, height} = this.state;
-
+    const { main: { current: main }, props: { join }, state: { width, height } } = this;
     if (width !== undefined && height !== undefined) {
       new Promise((ok) => window.requestAnimationFrame(ok))
-      .then(() => this.props.join({main: this.main.current, width, height}));
+      .then(() => join({main, width, height}));
     }
   }
 
-  componentDidMount() { this.componentDidUpdate() }
+  componentDidMount() {
+    const { container: { current: container } } = this;
 
-  childStyle() {
-    return {
-      gridArea: "content"
-    }
+    this.observer = new ResizeObserver( ([{ contentRect: { width, height } }]) =>
+      this.setState({ width, height })).observe(container);
   }
 
-  style() {
-    return {
-      position: "relative",
-      grid: '100%/100%'
-    }
+  componentWillUnmount() {
+    this.observer&&this.observer.disconnect();
   }
 
   render() {
-    let {join, children, render, style, className, ...etc} = this.props;
-    return <div
-      style={{...this.props.style, ...this.style()}}
-      className={"d3 "+ (className || "")} {...etc}>
+    const { props: { join, children, render, className, ...etc }, container, main } = this;
 
-      <ResizeObserver
-      onResize={({width, height})=>this.setState({width, height})} />
+    console.log(this.state.width, this.state.height);
+
+    // would return the svg but turns out svgs arent observable
+    // https://github.com/WICG/ResizeObserver/issues/9
+    return <div {...{
+	  ref: container,
+	  className: [style.d3].concat(className).join(" "),
+	  ...etc
+    }}>
 
       {React.cloneElement(
         React.Children.only(children),
-        {ref: this.main }
+        { ref: main }
       )}
-  </div>
 
-
+    </div>
   }
 }
+
+console.log(style);
