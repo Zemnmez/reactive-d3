@@ -6,7 +6,7 @@
 
 D3 allows beautiful representations of data, but most D3 snippets do not componentize well as they are virtually always programmed with a hard-coded `width` and `height` value.
 
-This small library exposes D3, a helper component which makes it easy to write D3 digrams that can be rendered into ReactDOM containers of any size and respond to changes.
+This small library exposes D3, a helper component which makes it easy to write D3 digrams that can be rendered into ReactDOM containers of any size and respond to changes. It uses a polyfilled ResizeObserver API to get resize events without blowing up everything and uses IntersectionObserver to only draw the component when it is visible.
 
 ## Install
 
