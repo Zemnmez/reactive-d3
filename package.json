@@ -15,8 +15,11 @@
   "scripts": {
     "test": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "build": "rollup -c",
-    "start": "rollup -c -w",
+    "lib:build": "rollup -c",
+    "lib:start": "rollup -c -w",
+    "examples:build": "cd example && yarn run build",
+    "examples:start": "cd example && yarn run start",
+    "start": "tmux new -s $(jq <package.json '.name') 'yarn lib:start' \\; split-window 'yarn examples:start'",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"

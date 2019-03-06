@@ -74,6 +74,7 @@ class Graph extends React.PureComponent {
   }
 
   join({main, width, height}) {
+    console.log("draw!")
     let {margin = this.defaultMargin, areas, points} = this.state;
 
     const graphWidth = width - margin.left - margin.right;
