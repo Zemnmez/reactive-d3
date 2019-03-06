@@ -1,6 +1,6 @@
 {
   "name": "reactive-d3",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "reactive react bindings for d3",
   "author": "zemnmez",
   "license": "MIT",
