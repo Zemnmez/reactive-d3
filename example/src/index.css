@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  padding-top: 200vh;
   font-family: sans-serif;
   height: 10000px;
 }

@@ -33,6 +33,8 @@ const throttle = (f, time) => {
   }
 }
 
+const requestIdleCallback = window.requestIdleCallback || ((callback) => callback());
+
 export default class D3 extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -47,6 +49,7 @@ export default class D3 extends React.PureComponent {
     const { main: { current: main }, props: { join }, state: { width, height } } = this;
     if (width !== undefined && height !== undefined) {
       new Promise((ok) => window.requestAnimationFrame(ok))
+      .then(new Promise((ok) => requestIdleCallback(ok)))
       .then(() => join({main, width, height}));
     }
   }
