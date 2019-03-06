@@ -1,2 +1,0 @@
-body{margin:0;padding:0;font-family:sans-serif}.graph{--focus:#000;--regular:dimgrey;--unfocus:grey;color:var(--regular);fill:var(--regular);font-family:monospace;height:50vh;width:50vw}.graph .area:nth-of-type(2n){fill:url(#stripes)}.graph .area{fill:none;stroke:none}.graph .line{fill:none}.graph .axis text{color:var(--unfocus)}.graph .axis .tick line{opacity:0}.graph.text{stroke:none}.graph .area-caption{font-size:2rm;fill:var(--focus);font-family:serif}
-/*# sourceMappingURL=main.0ba22c5d.css.map*/
