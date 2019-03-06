@@ -21,7 +21,7 @@
     "examples:start": "cd example && yarn run start",
     "build": "yarn run lib:build && yarn run examples:build",
     "start": "tmux new -s $(jq <package.json '.name') 'yarn lib:start' \\; split-window 'yarn examples:start'",
-    "deploy": "[[ -z $(git status -s) ]] && yarn run build && yarn publish && git add package.json && git commit -m 'bump version' && git push && gh-pages -d example/build"
+    "deploy": "[[ -z $(git status -s) ]] && yarn run build && yarn publish && git push && gh-pages -d example/build"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
