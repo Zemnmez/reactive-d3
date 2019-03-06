@@ -19,7 +19,7 @@
     "lib:start": "rollup -c -w",
     "examples:build": "cd example && yarn run build",
     "examples:start": "cd example && yarn run start",
-    "build": "yarn run examples:build && yarn run lib:build",
+    "build": "yarn run lib:build && yarn run examples:build",
     "start": "tmux new -s $(jq <package.json '.name') 'yarn lib:start' \\; split-window 'yarn examples:start'",
     "deploy": "[[ -z $(git status -s) ]] && yarn run build && yarn publish && git add package.json && git commit -m 'bump version' && git push && gh-pages -d example/build"
   },
