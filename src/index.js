@@ -4,6 +4,14 @@ import ResizeObserver from 'resize-observer-polyfill';
 import style from './index.module.css';
 import 'intersection-observer';
 
+const log = process.env.NODE_ENV == 'development'?
+  (...args) => console.log(...args):
+  () => void 0;
+
+const assert = process.env.NODE_ENV == 'development'?
+  (...args) => console.assert(...args):
+  () => void 0;
+
 const throttle = (f, time) => {
   let throttled = false;
   let next;
@@ -62,17 +70,27 @@ export default class D3 extends React.PureComponent {
 
       if (this.visible) return this.componentDidBecomeVisible();
       this.componentDidBecomeInvisible();
+    }, {
+      threshold: [0, .1]
     }).observe(container);
   }
 
   componentDidBecomeVisible() {
+    log("component now visible");
     const { container: { current: container } } = this;
-    this.resizeObserver = new ResizeObserver( ([{ contentRect: { width, height } }]) =>
-      this.setState({ width, height })).observe(container);
+    console.log("current resizeObserver", this.resizeObserver);
+    if (!this.resizeObserver) {
+      this.resizeObserver = new ResizeObserver( ([{ contentRect: { width, height } }]) =>
+	this.setState({ width, height }));
+      this.resizeObserver.observe(container);
+      log("new resizeObserver", this.resizeObserver);
+    }
   }
 
   componentDidBecomeInvisible() {
-    this.resizeObserver&&this.resizeObserver.disconnect();
+    log("component now invisible; removing resizeObserver");
+    this.resizeObserver&&(this.resizeObserver = this.resizeObserver.disconnect());
+    assert(this.resizeObserver == undefined);
   }
 
   componentWillUnmount() {
