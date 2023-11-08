@@ -1,5 +1,13 @@
 # reactive-d3
 
+## Deprecation Notice
+
+This library has not been updated for a very long time. please consider alternative methods of achieving this effect.
+
+One I like is using nested SVGs with relative positioning: https://www.sarasoueidan.com/blog/mimic-relative-positioning-in-svg
+
+***
+
 > reactive react bindings for d3
 
 [![NPM](https://img.shields.io/npm/v/reactive-d3.svg)](https://www.npmjs.com/package/reactive-d3) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
